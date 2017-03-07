@@ -5,7 +5,7 @@ EXPOSE 443
 
 RUN rm /usr/local/apache2/htdocs/index.html
 
-COPY content/ /usr/local/apache2/htdocs/
+COPY static/ /usr/local/apache2/htdocs/
 
 ### Start script incorporates config files and sends logs to stdout ###
 COPY start.sh .

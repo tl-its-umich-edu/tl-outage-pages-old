@@ -6,7 +6,7 @@ ln -sf /tmp/apache-conf/httpd.conf /usr/local/apache2/conf/httpd.conf
 #ln -s /tmp/apache-conf/httpd-cosign.conf /usr/local/apache2/conf/extra/httpd-cosign.conf
 
 # copy certs from secret volume to a location that can be written to.
-#mkdir /usr/local/apache2/certs/
+mkdir /usr/local/apache2/certs/
 #cp /usr/local/apache2/local/certs/* /usr/local/apache2/certs/
 cp /tmp/certs/* /usr/local/apache/certs/
 
