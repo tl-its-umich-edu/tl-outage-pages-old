@@ -1,6 +1,7 @@
 FROM httpd:2.4
 
-EXPOSE 443
+#EXPOSE 443
+EXPOSE 8080
 
 RUN rm /usr/local/apache2/htdocs/index.html
 
@@ -12,3 +13,4 @@ RUN chmod +x start.sh
 COPY static/ /usr/local/apache2/htdocs/
 
 CMD /usr/local/apache2/start.sh
+#CMD /bin/sh
