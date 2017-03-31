@@ -1,18 +1,19 @@
 #!/bin/bash
-# Script to build and run using local docker.
-# Needs to supply things that OpenShift would normally supply.
-# By convention the "staging" directory is used to temporarily hold
-# items that the local docker build may require.
-
-TAG=outage_a
-
-EXTERNAL_VOLUMES=" -v $(PWD)/staging:/tmp/apache-conf "
-PORTS=" -p 8080:8080 "
+# run_local_docker will set up local environment so that we can run the same
+# Dockerfile locally and on OpenShift.  Resources required locally are
+# put in the external directory.
 
 #set -x
-#docker build -t outage_a . \
-    #    && docker run -v $(PWD)/external:/tmp/apache-conf -p 8080:8080 outage_a
+# Make a common image tag for the build and the run.
+TAG=outage_a
 
+# Use this local file copy instead of the OpenShift secret so can run
+# on localhost 8080.
+cp $(pwd)/external/httpd.conf.8080 $(pwd)/external/httpd.conf
+
+# Build the image, mount the local file, and set up the ports to expose.
+# (Expose in the docker file is a suggestion and is overridden here.)
 docker build -t ${TAG} . \
-    && docker run ${EXTERNAL_VOLUMES} ${PORTS} ${TAG}
+    && docker run -v $(pwd)/external:/tmp/apache-conf -p 8080:8080 ${TAG}
+
 #end
