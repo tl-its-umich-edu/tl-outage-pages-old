@@ -23,7 +23,7 @@ fi
  
 # Build the image, mount the local file, and set up the ports to expose.
 # (Expose in the docker file is a suggestion and is overridden here.)
-#docker build -t ${TAG} . \
-#    && docker run -v $(pwd)/external:/tmp/apache-conf -p 8080:8080 ${TAG}
+docker build -t ${TAG} . \
+    && docker run -v $(pwd)/external:/tmp/apache-conf -p 8080:8080 ${TAG}
 
 #end
