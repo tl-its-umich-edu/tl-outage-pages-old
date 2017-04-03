@@ -1,0 +1,3 @@
+# Add entries to ignore items that are needed for plain docker
+# but should not be checked into source control.
+httpd.conf

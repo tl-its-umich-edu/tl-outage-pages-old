@@ -8,12 +8,22 @@
 TAG=outage_a
 
 # Use this local file copy instead of the OpenShift secret so can run
-# on localhost 8080.
-cp $(pwd)/external/httpd.conf.8080 $(pwd)/external/httpd.conf
+# on localhost 8080.  This file is customized to run on a local docker
+# instance.
 
+# if no httpd.conf file exists create one.
+if [[ ! -e $(pwd)/external/httpd.conf ]]; then
+    cp $(pwd)/external/httpd.conf.local.8080 $(pwd)/external/httpd.conf
+fi
+
+# if the provided one is newer than the local httpd.conf copy over the local one.
+ if [[ $(pwd)/external/httpd.conf.local.8080 -nt $(pwd)/external/httpd.conf ]]; then
+     cp $(pwd)/external/httpd.conf.local.8080 $(pwd)/external/httpd.conf
+ fi
+ 
 # Build the image, mount the local file, and set up the ports to expose.
 # (Expose in the docker file is a suggestion and is overridden here.)
-docker build -t ${TAG} . \
-    && docker run -v $(pwd)/external:/tmp/apache-conf -p 8080:8080 ${TAG}
+#docker build -t ${TAG} . \
+#    && docker run -v $(pwd)/external:/tmp/apache-conf -p 8080:8080 ${TAG}
 
 #end
